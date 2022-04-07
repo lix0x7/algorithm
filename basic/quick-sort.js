@@ -9,7 +9,7 @@ const qs = function (nums, left, right){
     let j = right;
     let pivotal = nums[left];
     while (i < j){
-        // 关键在于首先开始遍历的方向不能是pivotal所在的一般
+        // 关键在于首先开始遍历的方向不能是pivotal所在的一方
         // 这样才能达到遍历完成的同时交换元素的效果
         while (i < j && nums[j] >= pivotal){
             --j;
