@@ -21,10 +21,6 @@
 var findKthLargest = function(nums, k) {
 
     const impl = function (nums, left, right, k){
-        if (right <= left){
-            return;
-        }
-
         let i = left;
         let j = right;
         let pivotal = nums[left];
@@ -52,8 +48,7 @@ var findKthLargest = function(nums, k) {
         }
     }
 
-    impl(nums, 0, nums.length - 1, nums.length - k);
-    return nums[nums.length - k];
+    return impl(nums, 0, nums.length - 1, nums.length - k);
 };
 
 console.log(findKthLargest([1, 2, 3], 3), 1);
