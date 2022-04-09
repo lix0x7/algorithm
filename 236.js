@@ -1,4 +1,4 @@
-// tag: tree
+// tag: 树 重要
 // 236. 二叉树的最近公共祖先
 // 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
 //
@@ -15,36 +15,30 @@
  * @param {TreeNode} root
  * @param {TreeNode} p
  * @param {TreeNode} q
- * @return {TreeNode}
+ * @return {TreeNode} 如果包含p和q，返回root；如果仅包含一个，返回包含的节点；如果都不包含，返回null
  */
 var lowestCommonAncestor = function(root, p, q) {
-    const calcPath = function (cur, target, path){
-        if (!cur){
-            return;
-        }
-        if (cur.val === target.val){
-            path.push(cur);
-            return path;
-        }
-
-        path.push(cur);
-        const rtn = calcPath(cur.left, target, path) || calcPath(cur.right, target, path);
-        if (rtn){
-            return rtn;
-        }else {
-            path.pop();
-            return;
-        }
+    if (!root){
+        return null;
+    }
+    if (root === p || root === q){
+        return root;
     }
 
-    const pPath = calcPath(root, p, []);
-    const qPath = calcPath(root, q, []);
-    // console.log(pPath.map(x => x.val), qPath.map(x => x.val));
+    const l = lowestCommonAncestor(root.left, p, q);
+    const r = lowestCommonAncestor(root.right, p, q);
 
-    for (i = 0; i < Math.min(pPath.length, qPath.length); ++i){
-        if (pPath[i].val !== qPath[i].val){
-            return pPath[i - 1];
-        }
+    if (l && r){
+        // 如果左右节点都包含了要寻找的节点，那一定是各自包含了p / q，则当前节点为最近公共祖先
+        return root;
+    }else {
+        return l || r;
     }
-    return pPath[Math.min(pPath.length, qPath.length) - 1];
+
 };
+
+
+
+// 感受
+// 1. 树类型的题目先思考空节点、单节点、双节点、三节点的情况如何解题，再去思考如何递归下降
+// 2. 涉及到递归的问题空间复杂度都不是O(1)，因为要维护递归栈，此时为O(lgN)
