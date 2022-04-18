@@ -56,3 +56,9 @@ var longestPalindrome = function(s) {
 // console.log(longestPalindrome("xbabz"), "bab")
 // console.log(longestPalindrome("abcbcbbdad"), "bcbcb")
 console.log(longestPalindrome("cbbd"), "bb")
+
+/**
+ * 感受
+ *
+ * 此处dp数组的含义是，从i到j的字符串是否为回文串，故dp[i-1][j+1] = dp[i][j] && s[i-1] === s[j+1]
+ */
