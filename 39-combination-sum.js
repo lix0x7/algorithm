@@ -41,42 +41,27 @@
  */
 var combinationSum = function(candidates, target) {
 
-    const min = Math.min(...candidates);
-    const max = Math.max(...candidates);
-    const cache = new Array(candidates.length).fill(0).map(x => {
-        return {}
-    });
+    const rtn = [];
 
-    const impl = function (candidates, target, curIndex){
-        if (target < min || curIndex >= candidates.length){
-            return [];
+    const impl = function (candidates, fromIndex, target, cur, curSum) {
+        if (curSum === target) {
+            rtn.push([...cur]);
+            return;
+        } else if (curSum > target) {
+            return;
         }
 
-        if (cache[curIndex][target]){
-            return cache[curIndex][target];
+        while (fromIndex < candidates.length) {
+            const candidate = candidates[fromIndex];
+            cur.push(candidate)
+            impl(candidates, fromIndex, target, cur, curSum + candidate);
+            cur.pop();
+            fromIndex++;
         }
-
-        let rtn = [];
-
-        // 分解为子问题
-        for (let i = curIndex; i < candidates.length; ++i){
-            const candidate = candidates[i];
-            if (candidate === target){
-                rtn.push([target]);
-            }else {
-                const curSubAns = impl(candidates, target - candidate, i);
-                if (curSubAns){
-                    rtn.push(...(curSubAns.map(x => [candidate, ...(x.map(y => y))])));
-                }
-            }
-        }
-
-        cache[curIndex][target] = rtn;
-
-        return rtn;
     }
 
-    return impl(candidates, target, 0).filter(x => x.length > 0);
+    impl(candidates, 0, target, [], 0);
+    return rtn;
 };
 
 console.log(combinationSum([1,2,3,4], 3));
