@@ -30,37 +30,39 @@
  */
 var trap = function(height) {
     let sum = 0;
-    let l = 0;
-    height[-1] = 0;
-    height.push(0);
-    for (let r = 0; r < height.length; ++r){
-        const rh = height[r];
+    let l = 0, r = height.length - 1;
+
+    while (l < r) {
         const lh = height[l];
-        if (rh >= lh){
+        const rh = height[r];
+        if (lh < rh) {
+            let i = l;
+            while (i < r && height[i] <= lh) {
+                sum += lh - height[i];
+                i++;
+            }
+            l = i;
+        } else {
             let i = r;
-            while (i >= l){
-                sum += Math.max(0, lh - height[i]);
+            while (l < i && height[i] <= rh) {
+                sum += rh - height[i];
                 i--;
             }
-            l = r;
-        }
-    }
-
-    let r = height.length - 1;
-    while (r > l){
-        while (r > l && height[r - 1] >= height[r]){
-            r--;
-        }
-        const h = height[r];
-        while (r >= l && height[r] <= h){
-            sum += Math.max(0, h - height[r]);
-            r--;
+            r = i;
         }
     }
 
     return sum;
 };
 
-console.log(trap([0,1,0,2,1,0,1,3,2,1,2,1]), 6);
-console.log(trap([4,2,0,3,2,5]), 9);
-console.log(trap([9,6,8,8,5,6,3]), 3);
+console.log(trap([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]), 6);
+console.log(trap([4, 2, 0, 3, 2, 5]), 9);
+console.log(trap([9, 6, 8, 8, 5, 6, 3]), 3);
+console.log(trap([5, 5, 1, 7, 1, 1, 5, 2, 7, 6]), 23);
+
+/**
+ * tag 双指针
+ * 双指针思路的根本，一个位置的水深度取决于他左右两侧矮的那个板子，所以 当前位置水量 = Min(左指针高度，右指针高度) - 当前高度
+ * 怎么判定该移动哪个指针？
+ * 答：移动更矮的那个板，因为这样才不会减小min(左，右)，但如果移动高板，可能会导致min(左，右)减小，从而导致错误计算一些位置的蓄水高度
+ */
