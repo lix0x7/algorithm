@@ -107,6 +107,6 @@ console.log(JSON.stringify(mergeKLists([
 /**
  * 感受
  *
- * 本题为
+ * 用分治的思路实现，和归并排序类似
  *
  */
