@@ -36,46 +36,47 @@
  */
 
 /**
- * @param {character[][]} board
+ * @param {string[][]} board
  * @param {string} word
  * @return {boolean}
  */
-var exist = function(board, word) {
+var exist = function (board, word) {
 
     const used = Array.from(board, () => new Array(board[0].length).fill(false));
     // console.log(used);
     /**
      *
-     * @param cur {string}
      * @param i
      * @param j
+     * @param targetIndex {number}
      */
-    const impl = function (cur, i, j){
-        if (cur === word){
-            return true;
-        }
+    const impl = function (i, j, targetIndex) {
         if (
             i < 0 || i >= board.length || j < 0 || j >= board[0].length
             || used[i][j]
-            || cur.length > word.length
-            || (cur.length > 0 && cur[cur.length - 1] !== word[cur.length - 1])){
+            || targetIndex >= word.length
+            || board[i][j] !== word[targetIndex]
+        ) {
             return false;
         }
+        if (targetIndex === word.length - 1
+            && board[i][j] === word[targetIndex]) {
+            return true;
+        }
         used[i][j] = true;
-        const newCur = cur + board[i][j];
-        const rtn = impl(newCur, i + 1, j)
-        || impl(newCur, i - 1, j)
-        || impl(newCur, i, j + 1)
-        || impl(newCur, i, j -1);
+        const rtn = impl(i + 1, j, targetIndex + 1)
+            || impl(i - 1, j, targetIndex + 1)
+            || impl(i, j + 1, targetIndex + 1)
+            || impl(i, j - 1, targetIndex + 1);
 
         used[i][j] = false;
 
         return rtn;
     }
 
-    for (let i = 0; i < board.length; ++i){
-        for (let j = 0; j < board[0].length; ++j){
-            if (impl("", i, j)){
+    for (let i = 0; i < board.length; ++i) {
+        for (let j = 0; j < board[0].length; ++j) {
+            if (impl(i, j, 0)) {
                 return true;
             }
         }
@@ -84,8 +85,14 @@ var exist = function(board, word) {
     return false;
 };
 
-console.log(exist([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], 'ABCCED'), true);
-console.log(exist([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], 'SEE'), true);
-console.log(exist([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], 'ESEEDASABCCF'), true);
-console.log(exist([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], 'ABCB'), false);
+console.log(exist([["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], 'ABCCED'), true);
+console.log(exist([["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], 'SEE'), true);
+console.log(exist([["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], 'ESEEDASABCCF'), true);
+console.log(exist([["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], 'ABCB'), false);
 
+/**
+ * tag 回溯
+ *
+ * 这题需要注意没必要每次把完整的字符串带到下一次递归里，只需要判断每一次递归是否匹配当前索引位置的目标字符即可
+ *
+ */
