@@ -11,6 +11,7 @@ const qs = function (nums, left, right){
     while (i < j){
         // 关键在于首先开始遍历的方向不能是pivotal所在的一方
         // 这样才能达到遍历完成的同时交换元素的效果
+        // 一定有一侧排序是包含等于的情况的，否则和pivotal相同的元素会反复在两侧交换导致死循环！
         while (i < j && nums[j] >= pivotal){
             --j;
         }
