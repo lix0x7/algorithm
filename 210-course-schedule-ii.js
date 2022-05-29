@@ -39,10 +39,10 @@
  * @return {number[]}
  */
 var findOrder = function(numCourses, prerequisites) {
-  const m = new Array(numCourses).fill(0).map(x => new Array(numCourses).fill(false));
+  const m = new Array(numCourses).fill(0).map(x => []);
   const visited = new Array(numCourses).fill(0);  // 0 - 未搜索； 1 - 搜索中；2 - 已搜索
   for (const edge of prerequisites){
-    m[edge[0]][edge[1]] = true;
+    m[edge[0]].push(edge[1]);
   }
   const s = [];
   /**
@@ -51,21 +51,19 @@ var findOrder = function(numCourses, prerequisites) {
    * @returns {boolean} 是否合法的搜索状态，如果被搜索的节点是搜索中的状态，那么证明搜索到了环，即非法状态
    */
   const dfs = function (i) {
-    if (visited[i] === 2){
+    if (visited[i] === 2) {
       return true;
     }
-    if (visited[i] === 1){
+    if (visited[i] === 1) {
       return false;
     }
 
     // visited[i] = 0
     visited[i] = 1;
-    for (const [j, target] of m[i].entries()){
-      if (target) {
-        const ok = dfs(j);
-        if (!ok){
-          return false;
-        }
+    for (const target of m[i]) {
+      const ok = dfs(target);
+      if (!ok) {
+        return false;
       }
     }
     visited[i] = 2;
