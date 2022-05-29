@@ -36,33 +36,30 @@
  * @return {boolean}
  */
 var canFinish = function (numCourses, prerequisites) {
-  const m = new Array(numCourses).fill(0).map(x => new Array(numCourses).fill(false));
+  const m = new Array(numCourses).fill(0).map(x => new Array(numCourses));
   const visited = new Array(numCourses).fill(false);
   const memo = new Array(numCourses).fill(null);
 
   for (const dep of prerequisites) {
     // 增加有向边
-    m[dep[0]][dep[1]] = true;
+    m[dep[0]].push(dep[1]);
   }
 
   /**
    * 检查从给定位置开始广搜是否有环
    */
   const checkCircle = function (cur) {
-    if (memo[cur] !== null){
+    if (memo[cur] !== null) {
       return memo[cur];
     }
-    if (visited[cur]){
+    if (visited[cur]) {
       return true;
     }
 
     let rtn = false;
     visited[cur] = true;
-    for (let i = 0; i < numCourses; ++i){
-      if (!m[cur][i]){
-        continue;
-      }
-      rtn ||= checkCircle(i)
+    for (const target of m[cur]) {
+      rtn ||= checkCircle(target)
     }
     visited[cur] = false;
     memo[cur] = rtn;
@@ -78,7 +75,8 @@ var canFinish = function (numCourses, prerequisites) {
 };
 
 /**
- * tag 图 DFS 回溯 拓扑排序 优雅解法
+ * tag 图 栈 DFS 回溯 拓扑排序 优雅解法
  *
- * 本质上检查图中的环，可以优化下
+ * 本质上检查图中的环，此处解题思路如此。
+ * 该题是210-课程表II的简化版本，如果存在拓扑排序，则为true；不过不存在，则为false，只是没有要求给出拓扑排序
  */
