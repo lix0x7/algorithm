@@ -56,5 +56,9 @@ var findKthLargest = function(nums, k) {
 console.log(findKthLargest([1, 2, 3], 3), 1);
 console.log(findKthLargest([3, 2, 1], 3), 1);
 console.log(findKthLargest([4, 4, 4, 3, 2, 1], 4), 3);
-console.log(findKthLargest([3,2,1,5,6,4], 2), 5);
-console.log(findKthLargest([3,2,3,1,2,4,5,5,6], 4), 4);
+console.log(findKthLargest([3, 2, 1, 5, 6, 4], 2), 5);
+console.log(findKthLargest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4), 4);
+
+/**
+ * tag 排序
+ */
