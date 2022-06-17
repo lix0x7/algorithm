@@ -41,59 +41,48 @@
  * @return {string}
  */
 var decodeString = function(s) {
-  /**
-   *
-   * @param s
-   * @param start
-   * @param end
-   * @returns {string}
-   */
-  const impl = function (s, start, end){
-    if (start > end){
-      return '';
-    }
-    let foundBracket = false;
-    for (let i = start; i <= end; ++i){
-      if (s[i] === '['){
-        foundBracket = true;
-        break;
-      }
-    }
-    if (!foundBracket){
-      return s.slice(start, end + 1);
-    }
 
-    // 需要解码
-    let times = 0;
-    let curString = '';
-    for (let i = start; i <= end; ++i){
-      const cur = s[i];
-      const curDigital = Number.parseInt(cur);
-      if (cur === '['){
-        let count = 1;
-        let offset = 0;
-        while (count !== 0){
-          offset++;
-          if (s[i + offset] === '['){
-            count++;
-          }else if (s[i + offset] === ']'){
-            count--;
-          }
-        }
+  let stack = [];
 
-        curString += impl(s, i + 1, i + offset - 1).repeat(times || 1);
-        i = i + offset;
-        times = 0;
-      } else if (!isNaN(curDigital)){
-        times = times * 10 + curDigital;
-      } else {
-        curString += cur;
-      }
-    }
-    return curString;
+  const isDigital = function (char) {
+    return !isNaN(Number.parseInt(char));
   }
 
-  return impl(s, 0, s.length - 1);
+  for (const c of s) {
+    if (c === '[') {
+      stack.push('');
+      continue;
+    }
+
+    if (c === ']') {
+      let subString = stack.pop();
+      let times = Number.parseInt(stack.pop());
+      stack.push(subString.repeat(times));
+      while (stack.length >= 2 && !isDigital(stack[stack.length - 2][0])) {
+        const s1 = stack.pop();
+        const s2 = stack.pop();
+        stack.push(s2 + s1);
+      }
+      continue;
+    }
+
+    let top = stack[stack.length - 1] || '';
+    if (isDigital(c)) {
+      // number
+      if (!isDigital(top[0])) {
+        stack.push('');
+      }
+      stack[stack.length - 1] = stack[stack.length - 1] + c;
+    } else {
+      // alphabet
+      if (stack.length === 0 || isDigital(top)) {
+        stack.push('');
+      }
+      stack[stack.length - 1] = stack[stack.length - 1] + c;
+    }
+  }
+
+  return stack.join('');
 };
 
 console.log(decodeString('abc'), 'abc');
@@ -103,5 +92,8 @@ console.log(decodeString('a2[b]a2[b]'), 'abbabb');
 console.log(decodeString('a2[b2[c]]'), 'abccbcc');
 
 /**
- * tag 栈
+ * tag 错题本 栈 编译原理
+ *
+ * 类似于逆波兰表达式的思路
+ *
  */
