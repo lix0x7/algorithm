@@ -49,15 +49,13 @@
  */
 var calcEquation = function (equations, values, queries) {
 
-  const c2i = function (c) {
-    return c.charCodeAt(0) - 'a'.charCodeAt(0);
-  }
-
   const floyd = function (g, dp) {
-    for (let i = 0; i < g.length; ++i) {
-      for (let j = 0; j < g.length; ++j) {
-        // 遍历所有的分界点
-        for (let k = 0; k < g.length; ++k) {
+    const keys = Object.keys(g);
+    // 为什么循环k放在顶层???
+    for (const k of keys) {
+      for (const i of keys) {
+        for (const j of keys) {
+          // 遍历所有的分界点
           dp[i][j] = Math.min(dp[i][j], dp[i][k] * dp[k][j]);
         }
       }
@@ -65,26 +63,36 @@ var calcEquation = function (equations, values, queries) {
   }
 
   // init DAG
-  const g = new Array(26).fill(0).map(x => new Array(26).fill(Number.POSITIVE_INFINITY));
+  const g = {};
+  const nodes = equations.flat(Number.MAX_SAFE_INTEGER);
   // dp[i][j] dp数据表示 从i到j的最短路权值之和
-  const dp = new Array(26).fill(0).map(x => new Array(26).fill(Number.POSITIVE_INFINITY));
-  // 初始化到自己的路径权值为0
-  for (let i = 0; i < dp.length; ++i) {
-      dp[i][i] = 1;
-  }
-
-  for (let i = 0; i < equations.length; ++i) {
-    const eq = equations[i];
-    const val = values[i];
-    g[c2i(eq[0])][c2i(eq[1])] = val;
-    g[c2i(eq[1])][c2i(eq[0])] = 1 / val;
+  const dp = {};
+  // 初始化到自己的路径权值
+  for (const n1 of nodes) {
+    dp[n1] = {};
+    g[n1] = {};
+    for (const n2 of nodes) {
+      if (n1 === n2) {
+        dp[n1][n2] = 1;
+      } else {
+        dp[n1][n2] = Number.POSITIVE_INFINITY;
+      }
+    }
   }
 
   // 初始化直接相连的节点
-  for (let i = 0; i < g.length; ++i) {
-    for (let j = 0; j < g.length; ++j) {
-      if (g[i][j] < Number.POSITIVE_INFINITY) {
-        dp[i][j] = g[i][j];
+  for (let i = 0; i < equations.length; ++i) {
+    const eq = equations[i];
+    const val = values[i];
+    g[eq[0]][eq[1]] = val;
+    g[eq[1]][eq[0]] = 1 / val;
+  }
+
+  // 初始化直接相连节点的dp
+  for (const n1 of nodes) {
+    for (const n2 of nodes) {
+      if (g[n1][n2] !== undefined) {
+        dp[n1][n2] = g[n1][n2];
       }
     }
   }
@@ -94,14 +102,11 @@ var calcEquation = function (equations, values, queries) {
   // console.log(dp);
 
   // query
-  const query = function (g, dp, up, down){
-    let ans = 1;
-    for (let i = 0; i < up.length; ++i){
-      ans *= dp[c2i(up[i])][c2i(down[i])];
-    }
-    if (ans >= Number.POSITIVE_INFINITY){
+  const query = function (g, dp, up, down) {
+    const ans = (dp[up] || {})[down];
+    if (ans === undefined || ans >= Number.POSITIVE_INFINITY) {
       return -1;
-    }else {
+    } else {
       return ans;
     }
   }
@@ -113,16 +118,21 @@ var calcEquation = function (equations, values, queries) {
   return rtn;
 };
 
-console.log(calcEquation([["a", "b"], ["c", "d"]], [2, 3], [["ac", "bd"], ["ca", "db"], ["ad", "bc"], ["x", "x"]]),);
+// console.log(calcEquation([["a", "b"], ["c", "d"]], [2, 3], [["ac", "bd"], ["ca", "db"], ["ad", "bc"], ["x", "x"]]),);
+// console.log(
+//   calcEquation([["a", "b"], ["b", "c"]], [1.5, 2.5], [["a", "c"], ["c", "b"]]),
+//   [3.75, 0.4]
+// );
+//
+// console.log(
+//   calcEquation([["a", "b"], ["b", "c"], ["bc", "cd"]], [1.5, 2.5, 5.0], [["a", "c"], ["c", "b"], ["bc", "cd"], ["cd", "bc"]]),
+//   [3.75, 0.4, 5.0, 0.2]
+// );
 console.log(
-  calcEquation([["a","b"],["b","c"]], [1.5,2.5], [["a","c"],["c","b"]]),
-  [3.75,0.4]
+  calcEquation([["x1", "x2"], ["x2", "x3"], ["x3", "x4"], ["x4", "x5"]], [3.0, 4.0, 5.0, 6.0], [["x1", "x5"], ["x5", "x2"], ["x2", "x4"], ["x2", "x2"], ["x2", "x9"], ["x9", "x9"]]),
+  [360.0, 0.00833, 20.0, 1.0, -1.0, -1.0]
 );
 
-console.log(
-  calcEquation([["a","b"],["b","c"],["bc","cd"]], [1.5,2.5,5.0], [["a","c"],["c","b"],["bc","cd"],["cd","bc"]]),
-  [3.75,0.4,5.0,0.2]
-);
 
 /**
  * [["a","b"],["c","d"]]
@@ -132,4 +142,9 @@ console.log(
 
 /**
  * tag 错题本 图 动态规划 floyd
+ *
+ * 这道题本质就是图论的「寻找一条A到B的路径」，甚至没有要求是最短路，因为题目已经说明计算结果唯一了。
+ * 所以其实简单的DFS便可以解决问题。但是题目描述的太晦涩了，导致很难把get到一个关键的点，即「equations中的每个字符串是单个变量」，
+ * 也就是说，["bc", "cd"]表达的是 `"bc"/"cd"` 的的结果，不能理解为 `b/d`
+ *
  */
