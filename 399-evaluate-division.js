@@ -51,12 +51,21 @@ var calcEquation = function (equations, values, queries) {
 
   const floyd = function (g, dp) {
     const keys = Object.keys(g);
-    // 为什么循环k放在顶层???
     for (const k of keys) {
       for (const i of keys) {
         for (const j of keys) {
           // 遍历所有的分界点
           dp[i][j] = Math.min(dp[i][j], dp[i][k] * dp[k][j]);
+
+          /**
+           * 备注
+           * 此处状态转移方程实际应为
+           * dp[k][i][j] = Math.min(dp[k-1][i][j], dp[k-1][i][k] * dp[k-1][k][j]);
+           * k表达的是节点1...k中，从i到j的最短路，所以最外层循环应该是k
+           * 由于dp[k]仅和dp[k-1]相关，所以此处可以省略dp[k]这一维度，直接将转移方程简化为代码中的样子
+           * 但从理解的角度绝对不能跳过k这个维度，把转移方程理解为从i到j的最短路就是以k为中间点的i到j的最短路的和
+           * 不然转移方程最外层先遍历k是无法解释的
+           */
         }
       }
     }
