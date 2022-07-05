@@ -58,7 +58,7 @@ console.log(canPartition([1,2,3,5]), false);
 console.log(canPartition([2,2,4,2]), false);
 
 /**
- * tag 错题本 动态规划 背包问题
+ * tag 重要 错题本 动态规划 背包问题
  *
  * 看了题解思路是dp并且看了dp数组含义才做出来。没有意识到这是个背包问题，还是对背包问题不太敏感
  *
