@@ -46,21 +46,19 @@
  * @return {number}
  */
 var subarraySum = function(nums, k) {
-  const sumArr = [];
-  let curSum = 0;
-  for (const num of nums){
-    curSum += num;
-    sumArr.push(curSum);
-  }
-
+  // 前缀和map，k为sum，v为满足该前缀和的子数组个数
+  const sums = {};
   let rtn = 0;
-  for (let i = 0; i < sumArr.length; ++i){
-    for (let j = i; j < sumArr.length; ++j){
-      const s = sumArr[j] - sumArr[i] + nums[i];
-      if (s === k){
-        rtn++;
-      }
+
+  for (let i = 0, sum = 0; i < nums.length; ++i){
+    sum += nums[i];
+
+    rtn += sums[sum - k] || 0;
+    if (sum === k){
+      rtn++;
     }
+
+    sums[sum] = (sums[sum] || 0) + 1;
   }
 
   return rtn;
@@ -68,8 +66,10 @@ var subarraySum = function(nums, k) {
 
 console.log(subarraySum([1,1,1], 2), 2);
 console.log(subarraySum([1,2,3], 3), 2);
+console.log(subarraySum([1], 0), 0);
+console.log(subarraySum([1,2,1,2,1], 3), 4);
 
 /**
- * tag 前缀和
+ * tag 错题本 前缀和 2-sum
  *
  */
