@@ -33,35 +33,43 @@
  * @return {number}
  */
 var findUnsortedSubarray = function(nums) {
-  const s = [];
-  let from = undefined, end = undefined;
-  const top = function (s){
-    return s[s.length - 1];
-  }
-  for (let i = 0; i < nums.length; ++i){
+
+  let min = undefined;
+  let max = undefined;
+  let prev = nums[0];
+
+  for (let i = 1; i < nums.length; ++i){
     const cur = nums[i];
-    let topEntry = undefined;
-    while (s.length > 0 && top(s)[0] > cur){
-      const p = s.pop();
-      topEntry = topEntry || p;
-      end = i;
-      if (p[0] !== cur && (from === undefined || from > p[1])){
-        from = p[1];
+    if (cur < prev){
+      // 记录区间中最大最小值索引
+      if (min === undefined || cur < nums[min]){
+        min = i;
+      }
+      if (max === undefined || prev >= nums[max]){
+        max = i - 1;
       }
     }
-    s.push([cur, i]);
 
-    if (topEntry){
-      s.push(topEntry);
-    }
+    prev = cur;
   }
-  return from === undefined ? 0 : end - from + 1;
+
+  const minVal = nums[min], maxVal = nums[max];
+  // console.log({min, max})
+  min--;
+  max++;
+  while (min >= 0 && nums[min] > minVal) min--;
+  while (max < nums.length && nums[max] < maxVal) max++;
+
+  return (max - min - 1) || 0;
 };
 
 console.log(findUnsortedSubarray([1,2,3,4]), 0);
+console.log(findUnsortedSubarray([2,1]), 2);
 console.log(findUnsortedSubarray([1,3,5,2,7,9,8,10]), 6);
 console.log(findUnsortedSubarray([1,3,2,2,2]), 4);
 console.log(findUnsortedSubarray([1,3,2,3,3]), 2);
+console.log(findUnsortedSubarray([3,2,3,2,4]), 4);
+
 
 /**
  * tag 错题本 数组 单调栈
