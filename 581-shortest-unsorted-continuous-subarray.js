@@ -32,46 +32,46 @@
  * @param {number[]} nums
  * @return {number}
  */
-var findUnsortedSubarray = function(nums) {
+var findUnsortedSubarray = function (nums) {
 
-  let min = undefined;
-  let max = undefined;
-  let prev = nums[0];
+  let max = Number.MIN_SAFE_INTEGER, min = Number.MAX_SAFE_INTEGER;
+  let l = -1, r = -1;
 
-  for (let i = 1; i < nums.length; ++i){
-    const cur = nums[i];
-    if (cur < prev){
-      // 记录区间中最大最小值索引
-      if (min === undefined || cur < nums[min]){
-        min = i;
-      }
-      if (max === undefined || prev >= nums[max]){
-        max = i - 1;
-      }
+  for (let i = nums.length - 1; i >= 0; i--) {
+    if (nums[i] <= min) {
+      min = nums[i];
+    } else {
+      l = i;
     }
-
-    prev = cur;
   }
 
-  const minVal = nums[min], maxVal = nums[max];
-  // console.log({min, max})
-  min--;
-  max++;
-  while (min >= 0 && nums[min] > minVal) min--;
-  while (max < nums.length && nums[max] < maxVal) max++;
+  for (let i = 0; i < nums.length; ++i) {
+    if (nums[i] >= max) {
+      max = nums[i];
+    } else {
+      r = i;
+    }
+  }
 
-  return (max - min - 1) || 0;
+  return r === -1 ? 0 : r - l + 1;
 };
 
-console.log(findUnsortedSubarray([1,2,3,4]), 0);
-console.log(findUnsortedSubarray([2,1]), 2);
-console.log(findUnsortedSubarray([1,3,5,2,7,9,8,10]), 6);
-console.log(findUnsortedSubarray([1,3,2,2,2]), 4);
-console.log(findUnsortedSubarray([1,3,2,3,3]), 2);
-console.log(findUnsortedSubarray([3,2,3,2,4]), 4);
+console.log(findUnsortedSubarray([1, 2, 3, 4]), 0);
+console.log(findUnsortedSubarray([2, 1]), 2);
+console.log(findUnsortedSubarray([1, 3, 5, 2, 7, 9, 8, 10]), 6);
+console.log(findUnsortedSubarray([1, 3, 2, 2, 2]), 4);
+console.log(findUnsortedSubarray([1, 3, 2, 3, 3]), 2);
+console.log(findUnsortedSubarray([3, 2, 3, 2, 4]), 4);
+console.log(findUnsortedSubarray([-100,-99,-98,-97,-96,-95,-94,-93,-92,-91,-90,-89,-88,-87,-86,-85,-84,-83,-82,-81,-80,-79,-78,-77,-76,-75,-65,-53,-73,-63,-67,-61,-39,-58,-56,-55,-68,-66,-74,-49,-60,-51,-62,-42,-47,-54,-43,-71,-64,-59,-45,-69,-57,-41,-70,-44,-46,-50,-48,-72,-52,-40,-38,-37,-36,-35,-34,-33,-32,-31,-30,-29,-28,-27,-26,-25,-24,-23,-22,-21,-20,-19,-18,-17,-16,-15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99]),
+  36);
 
 
 /**
- * tag 错题本 数组 单调栈
- * 计数细节有点琐碎，容易出错
+ * tag 错题本 数组 单调栈 双指针
+ *
+ * 思考方式有点绕，官方题解还可以。
+ * 单调栈或双指针都可做，题目的本质类似于接雨水，通过判断待排序区间的最大值和最小值位置来寻找待排序区间的边界。
+ *
+ * <img src='https://note-asset-1251562845.cos.ap-beijing.myqcloud.com/2022/07/20220726120651-Pasted%20Graphic.png' alt='20220726120651-PastedGraphic'/>
+ *
  */
