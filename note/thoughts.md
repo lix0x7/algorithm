@@ -47,6 +47,8 @@
 
 - 数组类型题目容易纠结于 `<` / `<=` 这种边界条件、停止条件，要构造相关用例去验证
 
+- 数组题目两个大方向思路：1. 如果暴力解复杂度是`O(n^2)`或更高，是否可以将其排序 2. 是否可以用辅助数据结构降低时间复杂度，空间换时间
+
 # 数据结构
 
 - 数组 Array
@@ -61,7 +63,7 @@
 # 基础算法思想
 
 - 双指针
-  - 左右指针（二分查找）
+  - 左右指针（二分查找、接雨水）
   - 快慢指针（检测链表环）
   - 前后指针（滑动窗口的本质）
 - 分治，例如归并排序
@@ -83,6 +85,29 @@
 # 复杂度计算
 
 ## 主定理
+
+# 算法决策
+
+## 数组题目
+
+```mermaid
+flowchart TD
+  a[array] --> isSorted{is sorted?}
+  isSorted -- YES --> binSearch[binary search \n binary pointer]
+  isSorted -- NO --> couldBeSorted[">= O(N^2), could be sorted?"]
+  
+  couldBeSorted -- YES --> isSorted
+  couldBeSorted -- NO --> couldDp{"could dp?"}
+  
+  couldDp -- YES --> dp["dp"]
+  couldDp -- NO --> couldBacktrace["ask for subsets / permutations?"]
+  
+  couldBacktrace -- YES --> backtrace["backtrace"]
+  couldBacktrace -- NO  --> xxx
+  
+  --> xxx["others:\n hashmap\n unionset\n monotone stack..."]
+  
+```
 
 # 不错的文章
 
