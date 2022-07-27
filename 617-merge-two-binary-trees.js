@@ -64,3 +64,7 @@ var mergeTrees = function(root1, root2) {
   }
   return impl(root1, root2);
 };
+
+/**
+ * tag 树
+ */
