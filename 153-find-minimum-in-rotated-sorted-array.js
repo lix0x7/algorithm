@@ -47,6 +47,8 @@ var findMin = function(nums) {
   while (l < r){
     let mid = l + Math.floor((r - l) / 2);
     if (nums[mid] >= nums[r]) {
+      // 二分类问题的关键在于左侧不能是 l = mid，否则一定会出现死循环
+      // 例如只剩两个元素0 1时，l = 0, r = 1,此时l恒等于(l+r)/2，二分查找无法退出循环 while (l < r)
       l = mid + 1;
     } else {
       r = mid;
