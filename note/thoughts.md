@@ -115,3 +115,4 @@ flowchart TD
 # 不错的文章
 
 - [我的面试题总结 - 未名空间(mitbbs.com)](http://www.mitbbs.co.nz/article_t/JobHunting/32564237.html)
+- [Blind 75 - New Year Gift - Curated List of Top 75 LeetCode Questions to Save Your Time - Blind](https://www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-75-LeetCode-Questions-to-Save-Your-Time-OaM1orEU)
