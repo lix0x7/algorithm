@@ -103,9 +103,12 @@ flowchart TD
   couldDp -- NO --> couldBacktrace["ask for subsets / permutations?"]
   
   couldBacktrace -- YES --> backtrace["backtrace"]
-  couldBacktrace -- NO  --> xxx
+  couldBacktrace -- NO  --> couldMonoStack["required for next *** value?"]
   
-  --> xxx["others:\n hashmap\n unionset\n monotone stack..."]
+  couldMonoStack -- YES --> monoStack["monotone stack"]
+  couldMonoStack -- NO  --> xxx
+  
+  xxx["others:\n hashmap\n unionset\n..."]
   
 ```
 
