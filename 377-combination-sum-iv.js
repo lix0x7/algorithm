@@ -56,3 +56,7 @@ var combinationSum4 = function(nums, target) {
 
 console.log(combinationSum4([1,2,3], 4), 7);
 console.log(combinationSum4([], 4), 0);
+
+/**
+ * tag 动态规划
+ */
