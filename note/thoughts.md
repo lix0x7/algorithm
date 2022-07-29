@@ -108,7 +108,7 @@ flowchart TD
   couldMonoStack -- YES --> monoStack["monotone stack"]
   couldMonoStack -- NO  --> xxx
   
-  xxx["others:\n hashmap\n unionset\n..."]
+  xxx["others:\n hashmap\n unionset\n prefix/suffix sum..."]
   
 ```
 
