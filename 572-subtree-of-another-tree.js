@@ -56,3 +56,7 @@ var isSubtree = function(root, subRoot) {
   }
    return same(root, subRoot) || isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
 };
+
+/**
+ * tag 树
+ */
