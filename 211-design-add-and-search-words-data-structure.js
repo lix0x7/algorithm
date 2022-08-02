@@ -97,3 +97,7 @@ console.log(d.search("ab.."));
  * obj.addWord(word)
  * var param_2 = obj.search(word)
  */
+
+/**
+ * tag 树 trie
+ */

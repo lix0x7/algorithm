@@ -116,3 +116,4 @@ flowchart TD
 
 - [我的面试题总结 - 未名空间(mitbbs.com)](http://www.mitbbs.co.nz/article_t/JobHunting/32564237.html)
 - [Blind 75 - New Year Gift - Curated List of Top 75 LeetCode Questions to Save Your Time - Blind](https://www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-75-LeetCode-Questions-to-Save-Your-Time-OaM1orEU)
+- [Data structures and algorithms study cheatsheets for coding interviews | Tech Interview Handbook](https://www.techinterviewhandbook.org/algorithms/study-cheatsheet/)
