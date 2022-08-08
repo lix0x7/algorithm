@@ -34,29 +34,71 @@
  *     this.next = (next===undefined ? null : next)
  * }
  */
+
 /**
  * @param {ListNode} head
  * @return {void} Do not return anything, modify head in-place instead.
  */
 var reorderList = function(head) {
-  let cur = head, s = [];
-  while (cur){
-    s.push(cur);
-    cur = cur.next;
+  /**
+   *
+   * @param head {ListNode}
+   */
+  const reverse = function (head){
+    let prev = null, cur = head;
+    while (cur){
+      const next = cur.next;
+      cur.next = prev;
+      prev = cur;
+      cur = next;
+    }
+
+    return prev;
   }
 
-  let i = 0, j = s.length - 1;
-  while (i < j){
-    let l = s[i], r = s[j];
-    const nn = l.next;
-    l.next = r;
-    r.next = nn;
-    i++;
-    j--;
+  /**
+   *
+   * @param l1 {ListNode}
+   * @param l2 {ListNode}
+   */
+  const merge = function (l1, l2){
+    let c1 = l1, c2 = l2;
+    const dummy = {};
+    let cur = dummy;
+    while (c1 && c2){
+      const nc1 = c1.next;
+      cur.next = c1;
+      cur.next.next = c2;
+      cur = cur.next.next;
+      c1 = nc1;
+      c2 = c2.next;
+    }
+    cur.next = c1 || c2;
+    if (cur.next){
+      cur.next.next = null;
+    }
+    return dummy.next;
   }
-  s[i].next = null;
+
+  /**
+   *
+   * @param head {ListNode}
+   */
+  const findRightHead = function (head){
+    let slow = head, fast = head;
+    while (fast){
+      slow = slow.next;
+      fast = fast?.next?.next;
+    }
+
+    return slow;
+  }
+
+  const mid = findRightHead(head);
+  const right = reverse(mid);
+  merge(head, right);
 };
 
 /**
- * tag 优雅解法
+ * tag 链表 优雅解法
  */
