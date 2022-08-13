@@ -57,6 +57,6 @@ console.log(countSubstrings("abc"), 3);
 console.log(countSubstrings("aaa"), 6);
 
 /**
- * tag 动态规划
+ * tag 动态规划 回文
  * 官方题解中心扩展方法，时间复杂度O(n^2)，空间复杂度O(1)，比dp要好
  */
