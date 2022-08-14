@@ -104,7 +104,7 @@ flowchart TD
   isSorted -- NO --> couldBeSorted[">= O(N^2), could be sorted?"]
   
   couldBeSorted -- YES --> isSorted
-  couldBeSorted -- NO --> couldDp{"could dp?"}
+  couldBeSorted -- NO --> couldDp{"could be splited \ninto sub-problem,\n and use dp?"}
   
   couldDp -- YES --> dp["dp"]
   couldDp -- NO --> couldBacktrace["ask for subsets / permutations?"]
