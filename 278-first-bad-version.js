@@ -49,19 +49,16 @@ var solution = function(isBadVersion) {
    */
   return function(n) {
     let l = 0, r = n;
-    while (l <= r){
+    while (l < r){
       const mid = l + Math.floor((r - l) / 2);
       const midCheck = isBadVersion(mid);
       if (midCheck){
-        if (mid === 1 || !isBadVersion(mid - 1)){
-          return mid;
-        }else {
-          r = mid - 1;
-        }
+        r = mid;
       }else {
         l = mid + 1;
       }
     }
+    return l;
   };
 };
 
