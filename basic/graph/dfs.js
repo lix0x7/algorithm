@@ -6,11 +6,7 @@ const dfs = function (g){
   const visited = new Array(g.length).fill(0).map(x => new Array(g[0].length).fill(false));
   const newG = new Array(g.length).fill(0).map(x => new Array(g[0].length).fill(0));
   const impl = function (g, i, j) {
-    if (i < 0 || i >= g.length || j < 0 || j >= g[0].length){
-      return;
-    }
-
-    if (visited[i][j]){
+    if (i < 0 || i >= g.length || j < 0 || j >= g[0].length || visited[i][j]){
       return;
     }
 

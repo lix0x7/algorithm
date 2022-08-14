@@ -50,3 +50,7 @@ var search = function(nums, target) {
 console.log(search([5], 5), 0);
 console.log(search([-1,0,1,2,3], 3), 4);
 console.log(search([1,2,3,4,5], 0), -1);
+
+/**
+ * tag 数组 二分查找
+ */
