@@ -34,21 +34,15 @@
  */
 var reverseBits = function(n) {
   n = n >>> 0;
-  let offset = 0;
-  while (true){
-    let highMask = (1 << (31 - offset)) >>> 0;
-    let lowMask  = 1 << offset;
-    if (highMask <= lowMask){
-      return n >>> 0;
-    }
+  let rtn = 0, count = 0;
 
-    let highBackup = n & highMask;
-    // console.log(offset, (n & highMask).toString(2), (n & lowMask).toString(2));
-    n = (n & ~highMask) | ((n & lowMask) << (31 - 2 * offset));
-    n = (n & ~lowMask)  | (highBackup >>> (31 - 2 * offset));
-
-    offset += 1;
+  while (count < 32) {
+    rtn = (rtn << 1) | (n & 1);
+    n >>>= 1;
+    count++;
   }
+
+  return rtn >>> 0;
 };
 
 console.log(reverseBits(0b00000010100101000001111010011100).toString(2), '\n111001011110000010100101000000');
