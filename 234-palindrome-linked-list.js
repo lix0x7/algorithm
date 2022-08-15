@@ -46,27 +46,16 @@ var isPalindrome = function(head) {
     return true;
   }
 
-  // 找中点
-  let cur = head;
-  let length = 0;
-  while (cur){
-    length++;
-    cur = cur.next;
+  // find the mid
+  let slow = head, fast = head;
+  while (fast){
+    slow = slow.next;
+    fast = fast?.next?.next;
   }
-
-  let dummyMid = head;
-  for (let i = 0; i < Math.floor(length / 2 - 1); ++i){
-    dummyMid = dummyMid.next;
-  }
-
-  let mid = dummyMid.next
-  if (length % 2 !== 0){
-    mid = mid.next;
-  }
-  dummyMid.next = null;
+  slow.next = null;
 
   // reverse the second part
-  let prev = null, c = mid;
+  let prev = null, c = slow;
   while (c){
     let next = c.next;
     c.next = prev;
@@ -83,7 +72,7 @@ var isPalindrome = function(head) {
     left = left.next;
     right = right.next;
   }
-  return left === null && right === null;
+  return true;
 };
 
 
