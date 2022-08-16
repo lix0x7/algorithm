@@ -14,7 +14,11 @@ var insert = function(intervals, newInterval) {
     const cur = intervals[i], next = intervals[i + 1];
     if (cur[1] >= next[1]){
       // in
-      intervals.splice(i + 1, 1);
+      let offset = 0;
+      while (i + 1 + offset < intervals.length && cur[1] >= intervals[i + 1 + offset][1]){
+        offset++;
+      }
+      intervals.splice(i + 1, offset);
     }else if (cur[1] < next[1] && cur[1] >= next[0]){
       // overlapping, should be merged
       cur[1] = next[1];
@@ -30,6 +34,7 @@ console.log(insert([[1,2], [3,4]], [2,3]), ' should be: ', [[1, 4]]);
 console.log(insert([[1,2], [4,5]], [2,3]), ' should be: ', [[1,3], [4,5]]);
 console.log(insert([[1,2], [5,6]], [3,4]), ' should be: ', [[1,2], [3,4], [5,6]]);
 console.log(insert([[1,4]], [2,3]), ' should be: ', [[1,4]]);
+console.log(insert([[1,2],[3,5],[6,7],[8,10],[12,16]], [4,8]), ' should be: ', [[1,2],[3,10],[12,16]]);
 
 /**
  * tag 区间
