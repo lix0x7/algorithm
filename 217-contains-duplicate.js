@@ -45,7 +45,7 @@ console.log(containsDuplicate([1,2,3,1]), true);
 console.log(containsDuplicate([1,2,3]), false);
 
 /**
- * tag 数组 排序 哈希表
+ * tag 经典 数组 排序 哈希表
  *
  * 这道题是最基本的数组题思路体现。
  * 最暴力的解法为两次遍历寻找是否有重复，此时时间复杂度O(n^2)，空间复杂度O(1)

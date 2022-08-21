@@ -50,7 +50,7 @@ var lengthOfLIS = function(nums) {
 console.log(lengthOfLIS([0,1,0,3,2,3]), 4);
 
 /**
- * tag 动态规划 贪心 二分查找 奇技淫巧
+ * tag 经典 动态规划 贪心 二分查找 奇技淫巧
  *
  * 这里实现是动态规划，很好理解。二分的方法不太好理解，可以看官方题解，但个人觉得意义不大
  *

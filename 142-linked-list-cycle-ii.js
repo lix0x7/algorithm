@@ -78,7 +78,7 @@ var detectCycle = function(head) {
 };
 
 /**
- * tag 链表 数学 错题
+ * tag 经典 链表 数学 错题
  *
  * 本质上是一道数学题，可以看官方题解思路
  *

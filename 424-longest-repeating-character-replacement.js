@@ -54,4 +54,5 @@ console.log(characterReplacement("ABAB", 2), 4);
 
 /**
  * tag 数组 双指针
+ * 问题转化的关键在于，「替换多少个字符」等于「子串长度减最多字符数量」
  */

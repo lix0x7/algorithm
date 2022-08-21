@@ -82,7 +82,7 @@ console.log(nextPermutation([2,3,1]));
 console.log(nextPermutation([5,1,1]));
 
 /**
- * tag 数组 ad-hoc
+ * tag 排列组合 ad-hoc
  * 这题没啥意思，而且个人感觉题目出的不好，也不考察什么东西，有点ad-hoc性质
  * 简单说就是寻找全排列里的下一个排列，解决方法是从后到前寻找第一个非递增的位置，然后将其设置和该位置下一个全排列的数字交换后，
  * 再reverse该位置后的所有数字（因为这部分本身是降序的，所以reverse这个操作便是将其转变为升序）

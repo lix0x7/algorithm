@@ -76,7 +76,7 @@ var threeSum = function(nums) {
 console.log(threeSum([-1,0,1,2,-1,-4,-2, 2,2]));
 
 /**
- * tag: 错题本 双指针
+ * tag: 经典 错题本 双指针
  *
  * 确实没转过弯来，即使已经知道是排序+双指针，也没反应过来，需要锻炼下
  */

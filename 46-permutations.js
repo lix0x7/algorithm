@@ -71,5 +71,5 @@ console.log(permute([2,3]));
 console.log(permute([1,2,3]));
 
 /**
- * tag 回溯
+ * tag 经典 回溯
  */

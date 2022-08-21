@@ -136,7 +136,7 @@ console.log(lRUCache.get(2));       // -1
 console.log(lRUCache.get(3));       // 2
 
 /**
- * tag map 链表
+ * tag 经典 map 链表
  *
  * 基本思路就是链表和哈希表，但是实现细节上容易出错，需要小心
  *

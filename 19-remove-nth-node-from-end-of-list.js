@@ -60,3 +60,7 @@ var removeNthFromEnd = function(head, n) {
     prev.next = cur.next;
     return head;
 };
+
+/**
+ * tag 经典 链表
+ */

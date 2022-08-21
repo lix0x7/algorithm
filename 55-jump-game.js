@@ -49,7 +49,7 @@ console.log(canJump([3,2,1,0,4]), false);
 console.log(canJump([0]), true);
 
 /**
- * tag dp
+ * tag 动态规划 经典
  *
  * 思路是dp的思路，十分类似于欧式筛法。
  *

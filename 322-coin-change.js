@@ -56,7 +56,7 @@ console.log(coinChange([3], 2), -1);
 console.log(coinChange([1], 0), 0);
 
 /**
- * tag 动态规划
+ * tag 经典 动态规划
  *
  * 标准dp题目
  *

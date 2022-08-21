@@ -52,7 +52,7 @@ console.log(maxProfit([1,2,3,0,2]), 3);
 console.log(maxProfit([6,1,6,4,3,0,2]), 7);
 
 /**
- * tag 动态规划 错题本
+ * tag 经典 动态规划 错题本
  *
  * 没有想到最优解，但想到了O(n^2)的dp思路
  */

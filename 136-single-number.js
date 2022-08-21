@@ -29,3 +29,7 @@ var singleNumber = function(nums) {
 };
 
 console.log(singleNumber([1,2,3,4,1,2,3]));
+
+/**
+ * tag 位运算
+ */

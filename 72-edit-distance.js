@@ -44,7 +44,7 @@ var minDistance = function (word1, word2) {
     if (!word1 || !word2) {
         return word1.length + word2.length;
     }
-    // dp[i][j] 表示 word1[1...i] 转变为 word2[1...j] 需要的不足后
+    // dp[i][j] 表示 word1[1...i] 转变为 word2[1...j] 需要的步骤数
     const dp = new Array(word1.length).fill(0).map(x => new Array(word2.length).fill(0));
     dp[-1] = {};
     dp[-1][-1] = 0;

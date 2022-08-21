@@ -88,6 +88,6 @@ var cloneGraph = function(node) {
 };
 
 /**
- * tag 错题本 图
+ * tag 错题本 经典 图
  * 不是思路没想出来，实现细节上有小问题，待强化
  */

@@ -56,7 +56,7 @@ var buildTree = function(preorder, inorder, i, j) {
 };
 
 /**
- * tag 树
+ * tag 经典 树
  *
  * 关键：
  * 对于任意一颗树而言，前序遍历的形式总是

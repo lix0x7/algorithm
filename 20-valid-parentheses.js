@@ -65,3 +65,7 @@ var isValid = function(s) {
 console.log(isValid("([)]"), false);
 console.log(isValid("([])"), true);
 console.log(isValid("("), false);
+
+/**
+ * tag 栈
+ */

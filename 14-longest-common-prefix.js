@@ -47,6 +47,6 @@ var longestCommonPrefix = function(strs) {
 
 /**
  * tag 字符串
- * 题解的横向扫描和总想扫描都挺有意思的
+ * 题解的横向扫描和纵向扫描都挺有意思的
  * https://leetcode.cn/problems/longest-common-prefix/
  */

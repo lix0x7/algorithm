@@ -29,3 +29,7 @@ var reverseList = function(head) {
 
     return prev;
 };
+
+/**
+ * tag 经典 链表
+ */

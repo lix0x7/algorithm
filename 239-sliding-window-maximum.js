@@ -66,7 +66,7 @@ var maxSlidingWindow = function (nums, k) {
 console.log(maxSlidingWindow([1,3,4,4,4,-1,-3,5,3,6,7], 3), [4,4,4,4,4,5,5,6,7])
 
 /**
- * tag 错题 滑动窗口 单调队列
+ * tag 经典 错题 滑动窗口 单调队列
  *
  * 核心在于维护单调队列
  *

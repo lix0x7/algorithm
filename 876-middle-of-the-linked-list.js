@@ -48,5 +48,5 @@ var middleNode = function(head) {
 };
 
 /**
- * tag 链表
+ * tag 经典 链表
  */

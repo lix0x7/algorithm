@@ -57,7 +57,7 @@ var longestPalindrome = function(s) {
 console.log(longestPalindrome("cbbd"), "bb")
 
 /**
- * tag: 错题本 动态规划 回文
+ * tag: 错题本 动态规划 回文 经典
  *
  *  感受
  *

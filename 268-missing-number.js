@@ -49,5 +49,6 @@ var missingNumber = function(nums) {
 
 /**
  * tag 位运算 数学
+ * 还可以用数学方法解决，计算连续数组和然后对比给定的数组，差值即为确实的数字
  */
 
