@@ -37,42 +37,32 @@
  * @return {number}
  */
 var search = function(nums, target) {
-    let i = 0, j = nums.length - 1;
-    while (i <= j){
-        let mid = i + Math.floor((j - i) / 2);
-        let vi = nums[i], vj = nums[j], vm = nums[mid];
-        if (vm === target){
+    let l = 0, r = nums.length - 1;
+    while (l <= r){
+        const mid = l + Math.trunc((r - l) / 2);
+        const midValue = nums[mid];
+        // console.log(nums[l], midValue, nums[r])
+        if (midValue === target){
             return mid;
         }
-
-        if (vi < vj){
-            // 普通二分查找区间
-            if (target > vm){
-                i = mid + 1;
+        // mid有可能和左边界重叠，应该纳入这个范围内，二分题目务必注意
+        if (midValue >= nums[l]){
+            // 左半部分有序
+            if (target < midValue && target >= nums[l]){
+                r = mid - 1;
             }else {
-                j = mid - 1;
+                l = mid + 1;
             }
         }else {
-            // 旋转后的异常区间
-            if (vm > vj){
-                if (target > vm){
-                    i = mid + 1;
-                }else if (target >= vi) {
-                    j = mid - 1;
-                }else {
-                    i = mid + 1;
-                }
+            // 右半部分有序
+            if (target <= nums[r] && target > midValue){
+                l = mid + 1;
             }else {
-                if (target < vm){
-                    j = mid - 1;
-                }else if (target <= vj){
-                    i = mid + 1;
-                }else {
-                    j = mid - 1;
-                }
+                r = mid - 1;
             }
         }
     }
+
     return -1;
 };
 
@@ -86,6 +76,10 @@ console.log(search([4,5,6,7,8,1,2,3], 8), 4);
 
 
 /**
- * tag 二分查找
+ * tag 错题本 二分查找
+ *
+ * 核心思路在于找出二分后的有序部分，也就是代码中的 midValue >= nums[l]，用于判断是左半边有序还是右半边有序；
+ * 知道有序部分后再检查目标值是否在有序区间内，如果在，则收缩到有序区间内；否则收缩到另外一个区间。
+ * 对于两侧都有序的情况，这种方法自然会降级为基本的有序数组二分查找。
  *
  */
