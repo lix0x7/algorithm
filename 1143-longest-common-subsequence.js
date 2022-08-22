@@ -57,5 +57,5 @@ console.log(longestCommonSubsequence("abc", "abc"), 3);
 console.log(longestCommonSubsequence("abc", "edf"), 0);
 
 /**
- * tag 动态规划
+ * tag 经典 动态规划
  */
