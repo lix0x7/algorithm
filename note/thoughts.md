@@ -107,6 +107,7 @@
 - 蓄水池采样 todo
 - 拓扑排序
 - 约瑟夫环
+- 令牌桶算法
 
 # 复杂度计算
 
@@ -116,9 +117,12 @@
 
 ## 数组题目
 
+1. 是否已排序？ 二分查找、双指针
+2. 可否排序？
+
 ```mermaid
 flowchart TD
-  a[array] --> isSorted{is sorted?}
+  a[array] --> isSorted{"已排序?"}
   isSorted -- YES --> binSearch[binary search \n binary pointer]
   isSorted -- NO --> couldBeSorted[">= O(N^2), could be sorted?"]
   
