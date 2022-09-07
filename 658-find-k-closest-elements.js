@@ -34,6 +34,7 @@
  */
 var findClosestElements = function(arr, k, x) {
   // 二分查找模板，寻找可重复有序数组中最先出现的目标值
+  // 如果不存在，找到大于目标值中最接近的那个; 如果目标值大于数组中的最大值，则返回数组中的最大值
   let l = 0, r = arr.length - 1;
   while (l < r){
     const mid = l + Math.trunc((r - l) / 2);
@@ -44,10 +45,7 @@ var findClosestElements = function(arr, k, x) {
     }
   }
   // console.log(l, arr[l], x);
-  // 如果不存在，找到小于目标值中最接近的那个
-  if (arr[l] > x){
-    l--;
-  }
+  l--;
   r = l + 1;
 
   while (k-- > 0){
