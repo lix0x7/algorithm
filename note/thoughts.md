@@ -117,28 +117,25 @@
 
 ## 数组题目
 
-1. 是否已排序？ 二分查找、双指针
-2. 可否排序？
-
 ```mermaid
 flowchart TD
-  a[array] --> isSorted{"已排序?"}
-  isSorted -- YES --> binSearch[binary search \n binary pointer]
-  isSorted -- NO --> couldBeSorted[">= O(N^2), could be sorted?"]
+  a[array] --> isSorted["已排序?"]
+  isSorted -- YES --> binSearch[二分查找 \n 双指针]
+  isSorted -- NO --> couldBeSorted[">= O(N^2), 是否可以排序?"]
   
   couldBeSorted -- YES --> isSorted
-  couldBeSorted -- NO --> couldDp{"could be splited \ninto sub-problem,\n and use dp?"}
+  couldBeSorted -- NO --> couldDp["是否可以转化为子问题求解\n尝试dp？"]
   
   couldDp -- YES --> dp["dp"]
-  couldDp -- NO --> couldBacktrace["ask for subsets / permutations?"]
+  couldDp -- NO --> couldBacktrace["目标求解子集、排列组合？"]
   
-  couldBacktrace -- YES --> backtrace["backtrace"]
-  couldBacktrace -- NO  --> couldMonoStack["required for next *** value?"]
+  couldBacktrace -- YES --> backtrace["回溯"]
+  couldBacktrace -- NO  --> couldMonoStack["目标求解下一个***的值？"]
   
-  couldMonoStack -- YES --> monoStack["monotone stack"]
+  couldMonoStack -- YES --> monoStack["单调栈"]
   couldMonoStack -- NO  --> xxx
   
-  xxx["others:\n hashmap\n unionset\n prefix/suffix sum..."]
+  xxx["hashmap\n栈、队列模拟\n 并查集\n 前缀和、后缀和\n 2-sum like\n etc."]
   
 ```
 
