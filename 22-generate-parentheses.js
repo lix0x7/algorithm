@@ -45,3 +45,8 @@ var generateParenthesis = function(n) {
 };
 
 console.log(generateParenthesis(3));
+
+/**
+ * tag 回溯
+ *
+ */

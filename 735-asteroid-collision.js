@@ -1,0 +1,77 @@
+/**
+ * 735. Asteroid Collision
+ * We are given an array asteroids of integers representing asteroids in a row.
+ *
+ * For each asteroid, the absolute value represents its size, and the sign represents
+ * its direction (positive meaning right, negative meaning left). Each asteroid moves at the same speed.
+ *
+ * Find out the state of the asteroids after all collisions. If two asteroids meet, the smaller one will explode.
+ * If both are the same size, both will explode. Two asteroids moving in the same direction will never meet.
+ *
+ *
+ *
+ * Example 1:
+ *
+ * Input: asteroids = [5,10,-5]
+ * Output: [5,10]
+ * Explanation: The 10 and -5 collide resulting in 10. The 5 and 10 never collide.
+ * Example 2:
+ *
+ * Input: asteroids = [8,-8]
+ * Output: []
+ * Explanation: The 8 and -8 collide exploding each other.
+ * Example 3:
+ *
+ * Input: asteroids = [10,2,-5]
+ * Output: [10]
+ * Explanation: The 2 and -5 collide resulting in -5. The 10 and -5 collide resulting in 10.
+ *
+ *
+ * Constraints:
+ *
+ * 2 <= asteroids.length <= 104
+ * -1000 <= asteroids[i] <= 1000
+ * asteroids[i] != 0
+ */
+
+/**
+ * @param {number[]} asteroids
+ * @return {number[]}
+ */
+var asteroidCollision = function(asteroids) {
+  const s = [];
+  for (const stone of asteroids){
+    if (s.length === 0 || s[s.length - 1] <= 0 || stone > 0){
+      s.push(stone);
+    }else {
+      let destroy = false;
+      while (s.length > 0 && s[s.length - 1] > 0){
+        const top = s[s.length - 1];
+        if (top < -stone){
+          s.pop();
+        }else if (top === -stone){
+          s.pop();
+          destroy = true;
+          break;
+        }else {
+          destroy = true;
+          break;
+        }
+      }
+      if (!destroy){
+        s.push(stone);
+      }
+    }
+  }
+  return s;
+};
+
+console.log(asteroidCollision([5,10,-5]), [5, 10]);
+console.log(asteroidCollision([5,10,-5,2,8,-8,-10]), [5]);
+console.log(asteroidCollision([8,-8]), []);
+console.log(asteroidCollision([10,2,-5]), [10]);
+
+/**
+ * tag 栈
+ */
+
