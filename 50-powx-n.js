@@ -32,28 +32,16 @@
  * @return {number}
  */
 var myPow = function(x, n) {
-  if (n === 0 || x === 1){
-    return 1;
-  }
 
-  const mem = new Map();
-  mem.set(1, x);
-  let curIter = 1;
-  let cur = x;
-  while (curIter * 2 < Math.abs(n)){
-    cur = cur * cur;
-    curIter = curIter * 2;
-    mem.set(curIter, cur);
-  }
-
-  const calculated = [...mem.entries()].sort((a,b) => b[0] - a[0]);
-  for (const calculatedRst of calculated){
-    if (calculatedRst[0] <= Math.abs(n) - curIter){
-      curIter += calculatedRst[0];
-      cur = cur * calculatedRst[1];
+  const impl = function (x, n){
+    if (n === 0 || x === 1){
+      return 1;
     }
+    const calculated = impl(x, Math.trunc(n / 2));
+    return  n % 2 === 1 ? calculated * calculated * x : calculated * calculated;
   }
 
+  const cur = impl(x, Math.abs(n));
   if (n < 0){
     return 1 / cur;
   }else {
@@ -66,6 +54,6 @@ console.log(myPow(2, 3), 8);
 console.log(myPow(2, 10), 1024);
 
 /**
- * tag 数学 快速幂
+ * tag 数学 快速幂 优雅解
  *
  */
