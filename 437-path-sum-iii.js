@@ -40,27 +40,25 @@
  * @return {number}
  */
 var pathSum = function(root, targetSum) {
-  let count = 0;
-  const impl = function (cur, path, target){
+  const m = new Map();
+  m.set(0, 1);
+  const impl = function (cur, prevSum){
     if (!cur){
-      return;
+      return 0;
     }
-
-    path.push(cur.val);
-    let sum = 0;
-    for (let i = path.length - 1; i >= 0; i--){
-      sum += path[i];
-
-      if (sum === target){
-        count++;
-        console.log(path);
-      }
-    }
-    impl(cur.left, path, target);
-    impl(cur.right, path, target);
-    path.pop();
+    const curSum = prevSum + cur.val;
+    let rtn = m.get(curSum - targetSum) ?? 0;
+    m.set(curSum, (m.get(curSum) ?? 0) + 1);
+    rtn += impl(cur.left, curSum);
+    rtn += impl(cur.right, curSum);
+    m.set(curSum, (m.get(curSum) ?? 0) - 1);
+    return rtn;
   }
 
-  impl(root, [], targetSum);
-  return count;
+  return impl(root, 0);
 };
+
+/**
+ * tag 错题 树 前缀和 2-sum思想
+ * O(N^2)的方法比较简单能想到，O(N)的前缀和+2sum思想解法有一定难度
+ */
