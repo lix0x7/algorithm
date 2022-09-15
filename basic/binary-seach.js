@@ -9,6 +9,7 @@ var search = function(nums, target) {
   let l = 0, r = nums.length - 1;
   while (l < r){
     const mid = l + Math.floor((r - l) / 2);
+    // 等于时一定是缩小右边界，否则就会错误的跳过目标值
     if (nums[mid] >= target){
       r = mid;
     }else {
