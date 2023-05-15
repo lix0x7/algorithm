@@ -37,10 +37,26 @@
 # * @param {number} target
 # * @return {number[]}
 # */
+from typing import List
 
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        m = dict()
+        for i, num in enumerate(nums):
+            if m.get(target - num) is not None:
+                return [i, m.get(target - num)]
+            m[num] = i
 
-def test():
-    print('xxx')
+        return []
 
-# todo
-test()
+s = Solution()
+print(s.twoSum([1,2,3], 5), [1,2])
+print(s.twoSum([3,2,1], 5), [0,1])
+print(s.twoSum([1,2,3], 3), [0,1])
+print(s.twoSum([1,2,3], 3), [0,1])
+print(s.twoSum([1,-1,3], 3), [])
+print(s.twoSum([3,3], 6), [0,1])
+
+'''
+tag map 数组
+'''
