@@ -1,25 +1,24 @@
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 class Q3Longest {
-    public int[] twoSum(int[] nums, int target) {
-        var m = new HashMap<Integer, Integer>();
-        for (int i = 0; i < nums.length; i++) {
-            var cur = nums[i];
-            var anotherIdx = m.get(target - cur);
-            if (anotherIdx != null){
-                return new int[]{i, anotherIdx};
+    public int lengthOfLongestSubstring(String s) {
+        int rst = 0;
+        int l = 0;
+        var m = new HashMap<Character, Integer>();
+
+        for (int r = 0; r < s.length(); ++r){
+            var c = s.charAt(r);
+            if (m.containsKey(c)){
+                // 这一步是关键，考虑 ”abba“这种例子
+                // 当扫描到a时，l为2，但m.get("a")是0，此时真实的左边界应该为2
+                l = Math.max(l, m.get(c) + 1);
             }
-            m.put(cur, i);
+            m.put(c, r);
+            rst = Math.max(rst, r - l + 1);
         }
-
-        return new int[]{};
-    }
-
-    public static void main(String[] args) {
-        var s = new Q3Longest();
-        System.out.println(Arrays.toString(s.twoSum(new int[]{1, 2, 3}, 5)));
-        System.out.println(Arrays.toString(s.twoSum(new int[]{1, 2, 3}, 3)));
-        System.out.println(Arrays.toString(s.twoSum(new int[]{1, 1, 3}, 2)));
+        return rst;
     }
 }
